@@ -14,11 +14,5 @@ sh 'mvn package deploy -DmuleDeploy'
 }
 }
 
-stage('Perform Regression Testing'){
-steps{
-sh 'newman run /home/mustafa/Music/newmen/WORLD-TIME-ZONE.postman_collection.json'
-}
-}
-
 }
 }
