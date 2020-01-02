@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+    <http:listener-config name="salesforce-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <apikit:config name="salesforce-config" api="salesforce.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <flow name="salesforce-main">
+        <http:listener config-ref="salesforce-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="salesforce-config" />
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="42b67ef3-7f32-4efd-8584-23cddde929cc" >
+				<ee:transform doc:name="Transform Message" doc:id="39255c40-7d86-40c2-9277-da66599a62ec" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+"Invalid Username and Password in Main...."]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-propagate>
+		</error-handler>
+    </flow>
+    <flow name="delete:\Customer:salesforce-config">
+		<flow-ref doc:name="Flow Reference" doc:id="a7e9d63d-482f-438f-8b0a-416e4fed1cf5" name="delete:\Customer:salesforce-config"/>
+    </flow>
+    <flow name="get:\Customer:salesforce-config">
+		<flow-ref doc:name="Flow Reference" doc:id="bdebe3ec-c2c6-4e13-a4fb-272fe3b1ba50" name="PostRecords"/>
+    </flow>
+    <flow name="post:\Customer:application\json:salesforce-config">
+		<flow-ref doc:name="Flow Reference" doc:id="b9fc306a-3654-4376-b3d8-76ef1bbfc917" name="PostRecords"/>
+    </flow>
+</mule>

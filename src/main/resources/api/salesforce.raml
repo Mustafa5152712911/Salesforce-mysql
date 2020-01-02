@@ -1,0 +1,39 @@
+#%RAML 1.0
+version: v1
+description: Perform Informations on Salesforce
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/2032fa3e-7b8e-4d5e-84ae-baa0f3f93fdb/ # baseUri: 
+title: Salesforce
+uses:
+  sale: Resources/Postcustomers.raml
+
+/Customer:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include Examples/customers.json
+
+  post:
+    body:
+      application/json:
+         type: sale.orders
+         example: !include Examples/PostBodycustomer.json
+        
+    responses:
+      201:
+        body:
+          application/json:
+            example: !include Examples/customers.json
+  
+  delete:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include Examples/customers.json
+    
+              
+    
+    
+  

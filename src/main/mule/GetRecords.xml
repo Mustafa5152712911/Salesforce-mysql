@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="081adb07-48e0-4344-a09f-ead0ee5a349a" >
+		<salesforce:cached-basic-connection username="mustafakukshi52@gmail.com" password="Apisero@51525354" securityToken="wnfe5OIB8I2CAYq65aO3fLfr" />
+	</salesforce:sfdc-config>
+	<sub-flow name="GetRecords" doc:id="70a81d7a-72e5-4ab9-943d-284cc714a5ac" >
+		<try doc:name="Try" doc:id="9a9db8b6-cf20-4e5e-888b-e3ffb6eb502c" >
+			<salesforce:query doc:id="8c7c3407-eb83-45c5-8c1b-3bab61f62128" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query>select Id,Id__c,Name,Email__c,Address__c,Gender__c,Order_Number__c,Payment_mode__c,Phone_Number__c,Product__c,Quantity__c from LCustomer__c</salesforce:salesforce-query>
+		</salesforce:query>
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="e6c8b276-e29a-4136-8d23-2184cc560d9d" type="ANY">
+					<ee:transform doc:name="Transform Message" doc:id="e7b07c77-8b74-47a9-8f5e-35e693ce5497" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+"Invalid UserName and the Password...."]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</on-error-propagate>
+			</error-handler>
+		</try>
+		<ee:transform doc:name="Transform Message" doc:id="5e679fa3-e2d9-4a08-a349-fbfabb2b2e68" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

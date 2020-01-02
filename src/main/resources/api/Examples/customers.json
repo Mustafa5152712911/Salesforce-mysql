@@ -1,0 +1,14 @@
+{
+    "Order_Number__c": "APIK45217",
+    "Gender__c": "Male",
+    "Product__c": "Nighty",
+    "Id": "a002w0000016HQEAA2",
+    "Id__c": "1",
+    "type": "LCustomer__c",
+    "Phone_Number__c": "9.168448413E9",
+    "Name": "Mustafa",
+    "Email__c": "mustafakukshi52@gmai",
+    "Address__c": "fatimanagar",
+    "Payment_mode__c": "Cash",
+    "Quantity__c": "2.0"
+  }

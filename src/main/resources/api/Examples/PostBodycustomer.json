@@ -1,0 +1,15 @@
+[
+  {
+    "Order_Number__c": "APIK45152",
+    "Gender__c": "Female",
+    "Product__c": "Joggers",
+    "Id": "a002w0000016HQEAA3",
+    "type": "LCustomer__c",
+    "Phone_Number__c": "9.168448414E9",
+    "Name": "komi jain",
+    "Email__c": "komijain52@gmai",
+    "Address__c": "Shivajinagar",
+    "Payment_mode__c": "Credit",
+    "Quantity__c": "4.0"
+  }
+]
