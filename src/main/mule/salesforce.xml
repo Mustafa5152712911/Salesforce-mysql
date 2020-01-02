@@ -33,7 +33,7 @@ output application/java
 		<flow-ref doc:name="Flow Reference" doc:id="a7e9d63d-482f-438f-8b0a-416e4fed1cf5" name="delete:\Customer:salesforce-config"/>
     </flow>
     <flow name="get:\Customer:salesforce-config">
-		<flow-ref doc:name="Flow Reference" doc:id="bdebe3ec-c2c6-4e13-a4fb-272fe3b1ba50" name="PostRecords"/>
+		<flow-ref doc:name="Flow Reference" doc:id="bdebe3ec-c2c6-4e13-a4fb-272fe3b1ba50" name="GetRecords"/>
     </flow>
     <flow name="post:\Customer:application\json:salesforce-config">
 		<flow-ref doc:name="Flow Reference" doc:id="b9fc306a-3654-4376-b3d8-76ef1bbfc917" name="PostRecords"/>
